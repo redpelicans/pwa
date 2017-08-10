@@ -227,10 +227,14 @@ label[for='toggle-all'] {
   position: relative;
 }
 
-.todo-list li label {
+.todo-list li .labels {
   word-break: break-word;
   padding: 15px;
   margin-left: 45px;
+  font-size: 15px;
+  outline: none;
+  background-color: rgb(253,253,253);
+  border: none;
   display: block;
   line-height: 1.2;
   -webkit-transition: color 0.4s;
@@ -240,7 +244,7 @@ label[for='toggle-all'] {
   transition: color 0.4s;
 }
 
-.todo-list li.completed label {
+.todo-list li.completed .labels {
   color: #a9a9a9;
   text-decoration: line-through;
 }

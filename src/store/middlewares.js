@@ -1,31 +1,24 @@
-// import R from 'ramda';
-import { ADD_TODO } from '../actions/todos';
-import { getTodosFromPouch } from '..';
-
-const addTodo = (text, db) => {
-  const todo = {
-    _id: new Date().toISOString(),
-    title: text,
-    completed: false
-  };
-  db.put(todo)
-    .then(res => {
-      console.log('Successfully posted a todo!');
-      console.log(res);
-      getTodosFromPouch();
-    }).catch(err => {
-      console.log('Error happens');
-      console.log(err);
-    });
-};
+import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from '../actions/todos';
+import { addTodo, deleteTodo, updateTodo } from '../lib/pouchActions';
 
 export const PouchDbMiddleware = (db) => ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case ADD_TODO:
     {
       const { todo } = action.payload;
-      addTodo(todo, db);
+      return addTodo(todo, db);
     }
+    case DELETE_TODO:
+    {
+      const { todo } = action.payload;      
+      return deleteTodo(todo, db);
+    }
+    case UPDATE_TODO:
+    {
+      const { todo, newTodoText} = action.payload;
+      return updateTodo(newTodoText, todo, db);      
+    }
+    default: 
+      return next(action);
   }
-   return next(action);
 };
