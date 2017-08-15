@@ -15,7 +15,9 @@ const sync = () => {
   const opts = { live: true };
   db.sync(remoteCouch, opts);
 };
+
 sync();
+
 const store = configureStore({}, db);
 
 const Root = () => (
