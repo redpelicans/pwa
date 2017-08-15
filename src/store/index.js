@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
-import { PouchDbMiddleware } from './middlewares';
+import { pouchMiddleware, pouchMid } from './middlewares';
 import thunk from 'redux-thunk';
 import reducers from '../reducers';
 
@@ -14,7 +14,11 @@ const configureStore = (initialState, db) => (
   createStore(
     reducers,
     initialState,
-    compose(applyMiddleware(PouchDbMiddleware(db), thunk, logger)),
+    compose(applyMiddleware(
+      pouchMiddleware(db), 
+      pouchMid(db), 
+      thunk, 
+      logger)),
   )
 );
 
