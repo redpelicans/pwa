@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import R from 'ramda';
+import R from 'ramd';
 
 const getStateTodos = (state) => state.todos;
 
