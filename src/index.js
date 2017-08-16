@@ -11,8 +11,7 @@ import './index.css';
 const db = PouchDb('todos');
 const pathStore = 'todos';
 const remoteCouch = 'http://admin:admin@localhost:5984/todos';
-const configSync = {
-  live: true,
+const configSync = { live: true,
   retry: true,
 };
 
