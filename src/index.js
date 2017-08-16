@@ -3,26 +3,26 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import PouchDb from 'pouchdb';
 import configureStore from './store';
+import { syncRemote } from './lib/pouchActions';
 import App from './component/App';
 import registerServiceWorker from './registerServiceWorker';
-import { loadTodos, todoAdded, todoDeleted } from './actions/todos';
 import './index.css';
 
 const db = PouchDb('todos');
-const remoteCouch = 'http://localhost:5984/todos';
-
-const sync = () => {
-  const opts = { live: true };
-  db.sync(remoteCouch, opts);
+const pathStore = 'todos';
+const remoteCouch = 'http://admin:admin@localhost:5984/todos';
+const configSync = {
+  live: true,
+  retry: true,
 };
 
-sync();
+syncRemote(db, remoteCouch, configSync);
 
-const store = configureStore({}, db);
+const store = configureStore({}, db, pathStore);
 
 const Root = () => (
   <Provider store={store}>
-      <App />
+    <App />
   </Provider>
 );
 

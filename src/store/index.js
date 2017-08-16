@@ -1,23 +1,23 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
-import { pouchMiddleware, pouchMid } from './middlewares';
 import thunk from 'redux-thunk';
+import { pushToDb, populateStoreFromDb } from './middlewares';
 import reducers from '../reducers';
 
 const logger = createLogger({
   duration: true,
   timestamp: false,
-  collapsed: true
+  collapsed: true,
 });
 
-const configureStore = (initialState, db) => (
+const configureStore = (initialState, db, pathStore) => (
   createStore(
     reducers,
     initialState,
     compose(applyMiddleware(
-      pouchMiddleware(db), 
-      pouchMid(db), 
-      thunk, 
+      pushToDb(db),
+      populateStoreFromDb(db, pathStore),
+      thunk,
       logger)),
   )
 );
