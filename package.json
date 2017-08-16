@@ -33,7 +33,7 @@
     "lint-staged": "^4.0.3"
   },
   "lint-staged": {
-    "*.js": [
+    "*/**.js": [
       "prettier --write",
       "git add"
     ]
